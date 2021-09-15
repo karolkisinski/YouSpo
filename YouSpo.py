@@ -50,7 +50,7 @@ def add_video(song_name, id):
 	                  'playlistId': yt_playlistid, 
 	                  'resourceId': {
 	                  'kind': 'youtube#video',
-	                  'videoId': search_video(id)
+	                  'videoId': id
 	                    }
 	                  }     
 	          }
@@ -58,16 +58,31 @@ def add_video(song_name, id):
 	response = request.execute()
 	print("Added " + song_name + " to playlist")
 
+def check_duplicate(id):
+    request = youtube.playlistItems().list(
+        	part="snippet",
+        	playlistId=yt_playlistid,
+        	videoId=id
+    )
+    response = request.execute()
+
+    return(response['pageInfo']['totalResults'])
+
+
 def main(username, pl_id):
 	results = sp.user_playlist_tracks(username, pl_id)
 	for id, item in enumerate(results['items']):
 		track = item['track']
-		# print(id, track['artists'][0]['name'], " - ", track['name'])
 		vid = [track['artists'][0]['name'], " - ", track['name']]
 		song_to_search = ''.join(str(e) for e in vid)
-		song_to_add= song_to_search.encode('ascii', 'ignore').decode('ascii').replace(" ", "+")
-		add_video(song_to_search, song_to_add)
+		song_to_add= search_video(song_to_search.encode('ascii', 'ignore').decode('ascii').replace(" ", "+"))
+		if(check_duplicate(song_to_add)>0):
+			print(song_to_search + " is already in this playlist!")
+		else:
+			add_video(song_to_search, song_to_add)
+
 
 
 if __name__ == "__main__":
 	main(spotify_username, spotify_playlistid)
+	
