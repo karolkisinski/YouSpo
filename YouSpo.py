@@ -26,6 +26,9 @@ api_service_name = "youtube"
 api_version = "v3"
 client_secrets_file = "credentials.json"
 
+spotify_username = ""
+yt_playlistid = ""
+spotify_playlistid = ""
 
 flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_secrets_file(
         client_secrets_file, scopes)
@@ -44,15 +47,10 @@ def add_video(song_name, id):
 	        part="snippet",
 	        body={
 	        'snippet': {
-<<<<<<< HEAD
 	                  'playlistId': yt_playlistid, 
-	                  'playlistId': 'youtube_playlist_id', 
-=======
-	                  'playlistId': 'PL8b3Q6hDVVosmy4O2yvbk6UQeA5nYjfof', 
->>>>>>> parent of ab5e538... Added check_duplicate function
 	                  'resourceId': {
-	                          'kind': 'youtube#video',
-	                      'videoId': search_video(id)
+	                  'kind': 'youtube#video',
+	                  'videoId': search_video(id)
 	                    }
 	                  }     
 	          }
@@ -70,12 +68,6 @@ def main(username, pl_id):
 		song_to_add= song_to_search.encode('ascii', 'ignore').decode('ascii').replace(" ", "+")
 		add_video(song_to_search, song_to_add)
 
-<<<<<<< HEAD
+
 if __name__ == "__main__":
-	main('spotify_username', spotify_playlistid)
-	
-
-=======
-
-main('karol.kisinski', "37i9dQZF1DWWRktbhJiuqL")
->>>>>>> parent of ab5e538... Added check_duplicate function
+	main(spotify_username, spotify_playlistid)
