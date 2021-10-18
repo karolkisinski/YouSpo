@@ -81,7 +81,7 @@ python3 YouSpo.py
 Then go to the generated link and copy the authorization code. 
 Paste it in the console and press Enter.
 
-Here is a [video](https://youtu.be/4dhAyLSJiJ4) that shows how to download, configure and use this application:
+Here is a [video](https://youtu.be/4dhAyLSJiJ4) that shows how to download, configure and use this application
 
 
 
